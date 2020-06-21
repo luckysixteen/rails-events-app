@@ -8,10 +8,11 @@ Receive POSTed event JSON blobs.
 
 ### Today Stats
 groups event by event_type and returns the count for each
-* Way 1: From statistic table
-[> check api doc](#TodaystatsfromstatistictableAPI)
-* Way 2: Query from event table  
+* Way 1: Query from event table  
 [> check api doc](#TodaystatsfromqueryingAPI)
+* Way 2: From statistic table
+[> check api doc](#TodaystatsfromstatistictableAPI)
+
 
 
 
@@ -23,13 +24,13 @@ Documentation
 - [Create a event](#Createaevent) : `POST /events`
 - [Delete a event](#Deleteaevent) : `DELETE /evemts/:id`
 
-#### Today stats from statistic table API
-- [Show today stats](#Showtodaystats-table) : `GET /stats`
-- [Show specific day stats](#Showspecificdaystats-table) : `GET /stats/:date`
-
 #### Today stats from querying API
 - [Show today stats](#Showtodaystats-query) : `GET /statistic`
 - [Show specific day stats](#Showspecificdaystats-query) : `GET /statistic/:date`
+
+#### Today stats from statistic table API
+- [Show today stats](#Showtodaystats-table) : `GET /stats`
+- [Show specific day stats](#Showspecificdaystats-table) : `GET /stats/:date`
 
 
 ### **Show all events**
@@ -126,9 +127,9 @@ Note
 
 ### Task
 - [x] simple CRUD for event
-- [ ] Store the entire blob
+- [x] Store the entire blob
 - [x] Two keys `name` and `event_type` are required
-- [ ] return HTTP status 422 with error info if keys are not included
+- [x] return HTTP status 422 with error info if keys are not included
 
 Extra: 
 - [ ] todays stats
