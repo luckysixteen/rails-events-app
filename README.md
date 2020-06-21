@@ -3,17 +3,23 @@
 Feature
 ====
 ### Event CRUD operation 
-Receive POSTed event JSON blobs.
-[> check api doc](#event-crud-operation-api)
+Receive POSTed event JSON blobs and add the data to PostgreSQL database. Validate on `name` and `event_type` keyword and show all data or specific data from Database.
+[>> check api doc](#event-crud-operation-api)
 
 ### Today Stats
-groups event by event_type and returns the count for each
-* Way 1: Query from event table  
-[> check api doc](#today-stats-from-querying-api)
-* Way 2: From statistic table
-[> check api doc](#today-stats-from-statistic-table-api)
 
+Groups event by `event_type` and returns the count for each. Realizes in two ways.
 
+**1. Query from event table**  [>> check api doc](#today-stats-from-querying-api)
+* Everytime the endpoint request comes, grouping and querying statistic data from `event` table. 
+* Simple impletation, however the response will increase with database size increasing.
+* No need `statistic` table.
+* Trade time for space
+
+**2. From statistic table** [>> check api doc](#today-stats-from-statistic-table-api)
+* Endpoint request query directly from `statistic` table. Fast response all the time.
+* Need to maintain `statistic` table during all event CUD operation.
+* Trade time for space
 
 
 Documentation
