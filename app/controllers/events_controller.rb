@@ -14,11 +14,12 @@ class EventsController < ApplicationController
 
     # POST /events
     def create
+        puts event_params
         @event = Event.new(event_params)
         if @event.save
-            render json: @event
+            render json: { message: 'Event succeessfully store in the DB.', event: @event}
         else
-            render error: { error: 'Unable to create Event.' }, status: 400
+            render json: @event.errors.messages, status: 422
         end
     end
 
