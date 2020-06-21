@@ -1,17 +1,17 @@
-# Event Receiving App
+# Event Receiving API App
 
 Feature
 ====
 ### Event CRUD operation 
 Receive POSTed event JSON blobs.
-[> check api doc](#EventCRUDoperationAPI)
+[> check api doc](#event-crud-operation-api)
 
 ### Today Stats
 groups event by event_type and returns the count for each
 * Way 1: Query from event table  
-[> check api doc](#TodaystatsfromqueryingAPI)
+[> check api doc](#today-stats-from-querying-api)
 * Way 2: From statistic table
-[> check api doc](#TodaystatsfromstatistictableAPI)
+[> check api doc](#today-stats-from-statistic-table-api)
 
 
 
@@ -19,10 +19,10 @@ groups event by event_type and returns the count for each
 Documentation
 ====
 #### Event CRUD operation API
-- [Show all events](#Showallevents) : `GET /events`
-- [Receive a event](#Receiveaevent) : `GET /events/:id`
-- [Create a event](#Createaevent) : `POST /events`
-- [Delete a event](#Deleteaevent) : `DELETE /evemts/:id`
+- [Show all events](#show-all-events) : `GET /events`
+- [Show an event](#show-an-event) : `GET /events/:id`
+- [Create an event](#create-an-event) : `POST /events`
+- [Delete an event](#delete-an-event) : `DELETE /evemts/:id`
 
 #### Today stats from querying API
 - [Show today stats](#Showtodaystats-query) : `GET /statistic`
@@ -73,34 +73,26 @@ curl -X GET 'https://peaceful-meadow-66894.herokuapp.com/events/1'
 "updated_at": "2020-06-20T08:38:45.897Z"
 }
 ```
-#### Fail Response
-**Condition 1** : The URL parameter is not a valid id number.
+#### Error Response
+**Condition** : The URL parameter is not a valid id number.
 **Code** : `400 Bad Request`
-**Fail URL Sample**: `/events/abc`
-**Fail Sample**
+**Error URL Sample**: `/events/abc`
+**Error Sample**
 ```json
 {"error": "Event ID is invalid."}
 ```
-**Condition 2** : Cannot find the id query in the database.
+##### Or
+**Condition** : Cannot find the id query in the database.
 **Code** : `400 Bad Request`
-**Fail URL Sample**: `/events/100`
-**Fail Sample**
+**Error URL Sample**: `/events/100`
+**Error Sample**
 ```json
 {"error": "Cannot find the event."}
 ```
 
 
-**Condition 1** : The URL parameter is a valid id number and that id query has already stored in the database.
-**Code** : `400 Bad Request`
-**Fail Sample**
-```json
-{"error": "Cannot find the event"}
-```
 
-
-
-
-### **Create a event**
+### **Create an event**
 ----
 Create a event and save the "name" and "event_type" in the database. Returns event json data.
 **URL** : `/events`
@@ -117,7 +109,7 @@ curl -X POST --header 'Content-Type: application/json' --data '{"event" : {"name
 
 
 
-Note
+Notes
 ====
 ### Version
 * ruby 2.6.3p62
@@ -132,7 +124,7 @@ Note
 - [x] return HTTP status 422 with error info if keys are not included
 
 Extra: 
-- [ ] todays stats
+- [x] todays stats
 
 
 

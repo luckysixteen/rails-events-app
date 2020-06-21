@@ -79,8 +79,8 @@ test:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
 production:
-  <<: *default
-  database: events_app_production
+  # <<: *default
+  # database: events_app_production
   # username: events_app
   # password: <%= ENV['EVENTS_APP_DATABASE_PASSWORD'] %>
   url: <%= ENV['DATABASE_URL'] %>
