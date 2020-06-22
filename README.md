@@ -33,8 +33,8 @@ Documentation
 - [Delete an event](#delete-an-event) : `DELETE /evemts/:id`
 
 #### Today stats from querying API
-- [Show today stats](#Showtodaystats-query) : `GET /statistic`
-- [Show specific day stats](#Showspecificdaystats-query) : `GET /statistic/:date`
+- [Show today stats from query](#show-today-stats-from-query) : `GET /statistic`
+- [Show specific day stats from query](#show-specific-day-stats-from-query) : `GET /statistic/:date`
 
 #### Today stats from statistic table API
 - [Show today stats](#Showtodaystats-table) : `GET /stats`
@@ -202,7 +202,113 @@ curl -X POST --header 'Content-Type: application/json' --data '{"event" : {"name
 }
 ```
 
+### **Delete an event**
+----
+Delete the event of request id from database and returns result.
+**URL** : `/events/:id`
+**URL Params** : `id=[integer]` where `id` is ID of the event
+**Method** : `GET`
+**Data Params** : {}
+**Sample Call** :
+```bash
+curl -X GET 'https://peaceful-meadow-66894.herokuapp.com/events/1'
+```
+#### Success Response
+**Condition** : The URL parameter is a valid id number and that id query has already stored in the database.
+**Code** : `200 OK`
+**Success Sample**
+```json
+{
+    "id": 1,
+    "name": "test button 1",
+    "event_type": "click",
+    "deleted": true
+}
+```
+#### Error Response
+**Condition** : The URL parameter is not a valid id number.
+**Code** : `400 Bad Request`
+**Error URL Sample**: `/events/abc`
+**Error Sample**
+```json
+{"error": "Event ID is invalid."}
+```
+##### Or
+**Condition** : Cannot find the id query in the database.
+**Code** : `400 Bad Request`
+**Error URL Sample**: `/events/100000`
+**Error Sample**
+```json
+{"error": "Cannot find the event."}
+```
 
+
+### **Show today stats from query**
+----
+Returns json data about today's event_type statistics.
+**URL** : `/stats`
+**URL Params** : None
+**Method** : `GET`
+**Data Params** : {}
+**Sample Call** :
+```bash
+curl -X GET 'https://peaceful-meadow-66894.herokuapp.com/stats'
+```
+#### Success Response
+**Code** : `200 OK`
+**Success Sample**
+```json
+{
+    "todays_stats": {
+        "add": 1,
+        "click": 1,
+        "load": 4,
+        "pause": 10,
+        "play": 1,
+        "remove": 3,
+        "scroll": 5,
+        "view": 1
+    }
+}
+```
+
+
+### **Show specific day stats from query**
+----
+Returns json data about a request date's event_type statistics.
+**URL** : `/stats/:date`
+**URL Params** : `date=[integer]` where `date` is the date in `yyyymmdd` format.
+**Method** : `GET`
+**Data Params** : {}
+**Sample Call** :
+```bash
+curl -X GET 'https://peaceful-meadow-66894.herokuapp.com/stats/20200622'
+```
+#### Success Response
+**Condition** : The URL parameter is a valid date number in `yyyymmdd` format.
+**Code** : `200 OK`
+**Success Sample**
+```json
+{
+    "date": "2020-06-21",
+    "stats": {
+        "add": 1,
+        "load": 4,
+        "pause": 10,
+        "play": 1,
+        "remove": 3,
+        "scroll": 5
+    }
+}
+```
+#### Error Response
+**Condition** : The URL parameter is not a valid date number (not in `yyyymmdd` format).
+**Code** : `400 Bad Request`
+**Error URL Sample**: `/stats/2020622`
+**Error Sample**
+```json
+{"error":"Date parameter is invalid."}
+```
 
 
 Notes

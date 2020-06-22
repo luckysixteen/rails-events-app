@@ -36,18 +36,22 @@ class EventsController < ApplicationController
 
     # DELETE /events/:id
     def destroy
-        begin
-            @event = Event.find(params[:id])
-            id = @event[:id]
-            name = @event[:name]
-            event_type = @event[:event_type]
-            @event.destroy
-            json_message = { id: id, name: name, event_type: event_type, deleted: true }
-            render json: json_message, status: 200
-        rescue ActiveRecord::RecordNotFound
-            render json: { error: 'Cannot find the event.' }, status: 400
-            # render json: { error: 'Unable to delete Event.' }, status: 400
-        end 
+        if not params[:id] =~ /\A[-+]?[0-9]*\.?[0-9]+\Z/
+            render json: { error: 'Event ID is invalid.' }, status: 400
+        else
+            begin
+                @event = Event.find(params[:id])
+                id = @event[:id]
+                name = @event[:name]
+                event_type = @event[:event_type]
+                @event.destroy
+                json_message = { id: id, name: name, event_type: event_type, deleted: true }
+                render json: json_message, status: 200
+            rescue ActiveRecord::RecordNotFound
+                render json: { error: 'Cannot find the event.' }, status: 400
+                # render json: { error: 'Unable to delete Event.' }, status: 400
+            end 
+        end
     end
 
     private
