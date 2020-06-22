@@ -75,11 +75,11 @@ Documentation
 
 ### **Show all events**
 ----
-Returns json data about all events.
-**URL** : `/events`
-**URL Params** : None
-**Method** : `GET`
-**Data Params** : {}
+Returns json data about all events.  
+**URL** : `/events`  
+**URL Params** : None  
+**Method** : `GET`  
+**Data Params** : {}  
 **Sample Call** :
 ```bash
 curl -X GET 'https://peaceful-meadow-66894.herokuapp.com/events'
@@ -90,33 +90,33 @@ curl -X GET 'https://peaceful-meadow-66894.herokuapp.com/events'
 
 ### **Show an event**
 ----
-Returns json data about request event.
-**URL** : `/events/:id`
-**URL Params** : `id=[integer]` where `id` is ID of the event
-**Method** : `GET`
-**Data Params** : {}
+Returns json data about request event.  
+**URL** : `/events/:id`  
+**URL Params** : `id=[integer]` where `id` is ID of the event  
+**Method** : `GET`  
+**Data Params** : {}  
 **Sample Call** :
 ```bash
 curl -X GET 'https://peaceful-meadow-66894.herokuapp.com/events/1'
 ```
 #### Success Response
-**Condition** : The URL parameter is a valid id number and that id query has already stored in the database.
-**Code** : `200 OK`
-**Success Sample**
+**Condition** : The URL parameter is a valid id number and that id query has already stored in the database.  
+**Code** : `200 OK`  
+**Success Sample**  
 refer to [Event object sample](#event-object-sample)
 
 #### Error Response
-**Condition** : The URL parameter is not a valid id number.
-**Code** : `400 Bad Request`
-**Error URL Sample**: `/events/abc`
+**Condition** : The URL parameter is not a valid id number.  
+**Code** : `400 Bad Request`  
+**Error URL Sample**: `/events/abc`  
 **Error Sample**
 ```json
 {"error": "Event ID is invalid."}
 ```
 ##### Or
-**Condition** : Cannot find the id query in the database.
-**Code** : `400 Bad Request`
-**Error URL Sample**: `/events/100000`
+**Condition** : Cannot find the id query in the database.  
+**Code** : `400 Bad Request`  
+**Error URL Sample**: `/events/100000`  
 **Error Sample**
 ```json
 {"error": "Cannot find the event."}
@@ -125,17 +125,17 @@ refer to [Event object sample](#event-object-sample)
 
 ### **Create an event**
 ----
-Create an event by validating `name` and `event_type` information. Save the entire request json data in the database. Returns event object data.
-**URL** : `/events`
-**URL Params** : None
-**Method** : `POST`
-**Data Params** : requeire `name` and `event_type`
+Create an event by validating `name` and `event_type` information. Save the entire request json data in the database. Returns event object data.  
+**URL** : `/events`  
+**URL Params** : None  
+**Method** : `POST`  
+**Data Params** : requeire `name` and `event_type`  
 **Sample Call** :
 ```bash
 curl -X POST --header 'Content-Type: application/json' --data '{"event" : {"name" : "test button", "event_type" : "click", "at" : "2020-06-12T00:00:01", "button_color" : "red" }}' 'https://peaceful-meadow-66894.herokuapp.com/events'
 ```
 #### Success Response
-**Code** : `200 OK`
+**Code** : `200 OK`  
 **Success Sample**
 ```json
 {
@@ -157,8 +157,8 @@ curl -X POST --header 'Content-Type: application/json' --data '{"event" : {"name
 }
 ```
 #### Error Response
-**Condition** : Missing `name` or `event_type` keyword in request json data.
-**Code** : `422 Unprocessable Entity`
+**Condition** : Missing `name` or `event_type` keyword in request json data.  
+**Code** : `422 Unprocessable Entity`  
 **Error Request**
 ```json
 {
@@ -179,8 +179,8 @@ curl -X POST --header 'Content-Type: application/json' --data '{"event" : {"name
 }
 ```
 ##### Or
-**Condition** : `event_type` is invalid. Check all valid type: [event type](#event-type)
-**Code** : `422 Unprocessable Entity`
+**Condition** : `event_type` is invalid. Check all valid type: [event type](#event-type)  
+**Code** : `422 Unprocessable Entity`  
 **Error Request**
 ```json
 {
@@ -204,18 +204,18 @@ curl -X POST --header 'Content-Type: application/json' --data '{"event" : {"name
 
 ### **Delete an event**
 ----
-Delete the event of request id from database and returns result.
-**URL** : `/events/:id`
-**URL Params** : `id=[integer]` where `id` is ID of the event
-**Method** : `GET`
-**Data Params** : {}
+Delete the event of request id from database and returns result.  
+**URL** : `/events/:id`  
+**URL Params** : `id=[integer]` where `id` is ID of the event  
+**Method** : `GET`  
+**Data Params** : {}  
 **Sample Call** :
 ```bash
 curl -X GET 'https://peaceful-meadow-66894.herokuapp.com/events/1'
 ```
 #### Success Response
-**Condition** : The URL parameter is a valid id number and that id query has already stored in the database.
-**Code** : `200 OK`
+**Condition** : The URL parameter is a valid id number and that id query has already stored in the database.  
+**Code** : `200 OK`  
 **Success Sample**
 ```json
 {
@@ -226,17 +226,17 @@ curl -X GET 'https://peaceful-meadow-66894.herokuapp.com/events/1'
 }
 ```
 #### Error Response
-**Condition** : The URL parameter is not a valid id number.
-**Code** : `400 Bad Request`
-**Error URL Sample**: `/events/abc`
+**Condition** : The URL parameter is not a valid id number.  
+**Code** : `400 Bad Request`  
+**Error URL Sample**: `/events/abc`  
 **Error Sample**
 ```json
 {"error": "Event ID is invalid."}
 ```
 ##### Or
-**Condition** : Cannot find the id query in the database.
-**Code** : `400 Bad Request`
-**Error URL Sample**: `/events/100000`
+**Condition** : Cannot find the id query in the database.  
+**Code** : `400 Bad Request`  
+**Error URL Sample**: `/events/100000`  
 **Error Sample**
 ```json
 {"error": "Cannot find the event."}
@@ -245,17 +245,17 @@ curl -X GET 'https://peaceful-meadow-66894.herokuapp.com/events/1'
 
 ### **Show today stats from query**
 ----
-Returns json data about today's event_type statistics.
-**URL** : `/stats`
-**URL Params** : None
-**Method** : `GET`
-**Data Params** : {}
+Returns json data about today's event_type statistics.  
+**URL** : `/stats`  
+**URL Params** : None  
+**Method** : `GET`  
+**Data Params** : {}  
 **Sample Call** :
 ```bash
 curl -X GET 'https://peaceful-meadow-66894.herokuapp.com/stats'
 ```
 #### Success Response
-**Code** : `200 OK`
+**Code** : `200 OK`  
 **Success Sample**
 ```json
 {
@@ -275,18 +275,18 @@ curl -X GET 'https://peaceful-meadow-66894.herokuapp.com/stats'
 
 ### **Show specific day stats from query**
 ----
-Returns json data about a request date's event_type statistics.
-**URL** : `/stats/:date`
-**URL Params** : `date=[integer]` where `date` is the date in `yyyymmdd` format.
-**Method** : `GET`
-**Data Params** : {}
+Returns json data about a request date's event_type statistics.  
+**URL** : `/stats/:date`  
+**URL Params** : `date=[integer]` where `date` is the date in `yyyymmdd` format.  
+**Method** : `GET`  
+**Data Params** : {}  
 **Sample Call** :
 ```bash
 curl -X GET 'https://peaceful-meadow-66894.herokuapp.com/stats/20200622'
 ```
 #### Success Response
-**Condition** : The URL parameter is a valid date number in `yyyymmdd` format.
-**Code** : `200 OK`
+**Condition** : The URL parameter is a valid date number in `yyyymmdd` format.  
+**Code** : `200 OK`  
 **Success Sample**
 ```json
 {
@@ -302,9 +302,9 @@ curl -X GET 'https://peaceful-meadow-66894.herokuapp.com/stats/20200622'
 }
 ```
 #### Error Response
-**Condition** : The URL parameter is not a valid date number (not in `yyyymmdd` format).
-**Code** : `400 Bad Request`
-**Error URL Sample**: `/stats/2020622`
+**Condition** : The URL parameter is not a valid date number (not in `yyyymmdd` format).  
+**Code** : `400 Bad Request`  
+**Error URL Sample**: `/stats/2020622`  
 **Error Sample**
 ```json
 {"error":"Date parameter is invalid."}
