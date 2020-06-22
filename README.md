@@ -8,7 +8,7 @@ Receive POSTed event JSON blobs and add the data to PostgreSQL database. Validat
 
 ### Today Stats
 
-Groups event by `event_type` and returns the count for each. Realizes in two ways.
+Groups event by `event_type` and returns the count for each. Realizes in two ways. All result based on **server timezone** (Pacific Time (US & Canada)).
 
 **1. Query from event table**  [>> check api doc](#today-stats-from-querying-api)
 * Everytime the endpoint request comes, grouping and querying statistic data from `event` table. 
@@ -19,14 +19,13 @@ Groups event by `event_type` and returns the count for each. Realizes in two way
 **2. From statistic table** [>> check api doc](#today-stats-from-statistic-table-api)
 * Endpoint request query directly from `statistic` table. Fast response all the time.
 * Need to maintain `statistic` table during all event CUD operation.
-* Trade time for space
+* Trade space for time
 
 
 Documentation
 ====
 #### Event CRUD operation API
 - [The Event Object](#the-event-object)   
-
 - [Show all events](#show-all-events) : `GET /events`
 - [Show an event](#show-an-event) : `GET /events/:id`
 - [Create an event](#create-an-event) : `POST /events`
@@ -245,7 +244,7 @@ curl -X GET 'https://peaceful-meadow-66894.herokuapp.com/events/1'
 
 ### **Show today stats from query**
 ----
-Returns json data about today's event_type statistics.  
+Returns json data about today's event_type statistics. Base on **server timezone** (Pacific Time (US & Canada)).
 **URL** : `/stats`  
 **URL Params** : None  
 **Method** : `GET`  
@@ -259,6 +258,7 @@ curl -X GET 'https://peaceful-meadow-66894.herokuapp.com/stats'
 **Success Sample**
 ```json
 {
+    "today_date": "2020-06-21",
     "todays_stats": {
         "add": 1,
         "click": 1,
@@ -311,6 +311,7 @@ curl -X GET 'https://peaceful-meadow-66894.herokuapp.com/stats/20200622'
 ```
 
 
+
 Notes
 ====
 ### Version
@@ -327,7 +328,6 @@ Notes
 
 Extra: 
 - [x] todays stats
-
 
 
 ### Implement
