@@ -13,7 +13,7 @@ class EventsController < ApplicationController
         else 
             begin
                 @event = Event.find(params[:id])
-                render json: @event
+                render json: { event: @event.attributes.slice('id', 'name', 'event_type', 'created_at'), details: JSON.parse(@event[:details])}
             rescue ActiveRecord::RecordNotFound
                 render json: { error: 'Cannot find the event.' }, status: 400
             end
@@ -24,9 +24,9 @@ class EventsController < ApplicationController
     def create
         @event = Event.new(event_params)
         if @event.save
-            render json: { message: 'Event succeessfully store in the DB.', event: @event.attributes.slice('id', 'name', 'event_type', 'created_at'), details: JSON.parse(@event[:details])}
+            render json: { message: 'Event succeessfully store in the database.', event: @event.attributes.slice('id', 'name', 'event_type', 'created_at'), details: JSON.parse(@event[:details])}
         else
-            render json: @event.errors.messages, status: 422
+            render json: { error: @event.errors.messages }, status: 422
         end
     end
 
@@ -36,22 +36,27 @@ class EventsController < ApplicationController
 
     # DELETE /events/:id
     def destroy
-        @event = Event.find(params[:id])
-        if @event
+        begin
+            @event = Event.find(params[:id])
+            id = @event[:id]
+            name = @event[:name]
+            event_type = @event[:event_type]
             @event.destroy
-            render json: { message: 'Event successfully deleted.' }, status: 200
-        else
-            render json: { error: 'Unable to delete Event.' }, status: 400
+            json_message = { id: id, name: name, event_type: event_type, deleted: true }
+            render json: json_message, status: 200
+        rescue ActiveRecord::RecordNotFound
+            render json: { error: 'Cannot find the event.' }, status: 400
+            # render json: { error: 'Unable to delete Event.' }, status: 400
         end 
     end
 
     private
 
     def event_params
-        puts params
-        puts params.as_json
-        puts request.body.read
-        puts JSON.parse(request.body.read).to_json
+        # puts params
+        # puts params.as_json
+        # puts request.body.read
+        puts JSON.parse(params.require(:event).to_json)
 
         params.require(:event).permit(:name, :event_type).merge({"details": JSON.parse(request.body.read).to_json})
     end
