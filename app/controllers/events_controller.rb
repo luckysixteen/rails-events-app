@@ -28,6 +28,15 @@ class EventsController < ApplicationController
         else
             render json: { error: @event.errors.messages }, status: 422
         end
+
+        # maintain statistics table
+        @stat = Event.where("created_at BETWEEN ? AND ?", DateTime.now.beginning_of_day, DateTime.now.end_of_day).all.group(:event_type).count
+        @statistic = Statistic.find_by(date: DateTime.now.strftime("%Y-%m-%d"))
+        if @statistic === nil
+            @statistic = Statistic.new(date: DateTime.now.strftime("%Y-%m-%d"))
+        else
+            @statistic.update(@stat)
+        end
     end
 
     # PUT /events/:id

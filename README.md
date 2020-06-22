@@ -244,7 +244,7 @@ curl -X GET 'https://peaceful-meadow-66894.herokuapp.com/events/1'
 
 ### **Show today stats from query**
 ----
-Returns json data about today's event_type statistics. Base on **server timezone** (Pacific Time (US & Canada)).
+Returns json data about today's event_type statistics. Base on **server timezone** (Pacific Time (US & Canada)).  
 **URL** : `/stats`  
 **URL Params** : None  
 **Method** : `GET`  
@@ -365,11 +365,12 @@ $ rails generate model Event name:string event_type:string
 * **select** : integer
 * **load**: integer
 * **scroll**: integer
-
-
 <!-- ###### Relationship
 has_many :Statistic -->
-
+###### Creation
+```bash
+$ rails generate model Statistic date:date click:integer view:integer play:integer pause:integer add:integer remove:integer download:integer select:integer load:integer scroll:integer
+```
 
 
 #### Event Type

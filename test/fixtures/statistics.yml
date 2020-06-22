@@ -1,0 +1,27 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  date: 2020-06-21
+  click: 1
+  view: 1
+  play: 1
+  pause: 1
+  add: 1
+  remove: 1
+  download: 1
+  select: 1
+  load: 1
+  scroll: 1
+
+two:
+  date: 2020-06-21
+  click: 1
+  view: 1
+  play: 1
+  pause: 1
+  add: 1
+  remove: 1
+  download: 1
+  select: 1
+  load: 1
+  scroll: 1
