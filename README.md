@@ -32,12 +32,12 @@ Documentation
 - [Delete an event](#delete-an-event) : `DELETE /evemts/:id`
 
 #### Today stats from querying API
-- [Show today stats from query](#show-today-stats-from-query) : `GET /statistic`
-- [Show specific day stats from query](#show-specific-day-stats-from-query) : `GET /statistic/:date`
+- [Show today stats from query](#show-today-stats-from-query) : `GET /stats`
+- [Show specific day stats from query](#show-specific-day-stats-from-query) : `GET /stats/:date`
 
 #### Today stats from statistic table API
-- [Show today stats](#Showtodaystats-table) : `GET /stats`
-- [Show specific day stats](#Showspecificdaystats-table) : `GET /stats/:date`
+- [Show today stats from table](#show-today-stats-from-table) : `GET /statistics`
+- [Show specific day stats from table](#show-specific-day-stats-from-table) : `GET /statistics/:date`
 
 
 ### **The Event object**
@@ -308,6 +308,88 @@ curl -X GET 'https://peaceful-meadow-66894.herokuapp.com/stats/20200622'
 **Error Sample**
 ```json
 {"error":"Date parameter is invalid."}
+```
+
+
+### **Show today stats from table**
+----
+Returns json data about today's event_type statistics from `statistics` table. Base on **server timezone** (Pacific Time (US & Canada)).  
+**URL** : `/stats`  
+**URL Params** : None  
+**Method** : `GET`  
+**Data Params** : {}  
+**Sample Call** :
+```bash
+curl -X GET 'https://peaceful-meadow-66894.herokuapp.com/statistics'
+```
+#### Success Response
+**Code** : `200 OK`  
+**Success Sample**
+```json
+{
+    "date": "2020-06-22",
+    "statistics": {
+        "click": 1,
+        "view": 7,
+        "play": 1,
+        "pause": 0,
+        "add": 3,
+        "remove": 0,
+        "download": 0,
+        "select": 0,
+        "load": 0,
+        "scroll": 0
+    }
+}
+```
+
+
+### **Show specific day stats from table**
+----
+Returns json data about a request date's event_type statistics from `statistics` table..  
+**URL** : `/statistics/:date`  
+**URL Params** : `date=[integer]` where `date` is the date in `yyyymmdd` format.  
+**Method** : `GET`  
+**Data Params** : {}  
+**Sample Call** :
+```bash
+curl -X GET 'https://peaceful-meadow-66894.herokuapp.com/statistics/20200622'
+```
+#### Success Response
+**Condition** : The URL parameter is a valid date number in `yyyymmdd` format.  
+**Code** : `200 OK`  
+**Success Sample**
+```json
+{
+    "date": "2020-06-22",
+    "statistics": {
+        "click": 1,
+        "view": 7,
+        "play": 1,
+        "pause": 0,
+        "add": 3,
+        "remove": 0,
+        "download": 0,
+        "select": 0,
+        "load": 0,
+        "scroll": 0
+    }
+}
+```
+##### Or 
+```json
+{
+    "date": "2020-06-20",
+    "message": "No record on this day."
+}
+```
+#### Error Response
+**Condition** : The URL parameter is not a valid date number (not in `yyyymmdd` format).  
+**Code** : `400 Bad Request`  
+**Error URL Sample**: `/stats/2020622`  
+**Error Sample**
+```json
+{"error": "Date parameter is invalid."}
 ```
 
 
